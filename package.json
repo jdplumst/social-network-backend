@@ -20,5 +20,8 @@
   "homepage": "https://github.com/jdplumst/social-network-backend#readme",
   "devDependencies": {
     "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3"
   }
 }
