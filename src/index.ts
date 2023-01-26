@@ -1,7 +1,18 @@
 require("dotenv").config();
-
 import express from "express";
-import { pool } from "./database";
+import mongoose from "mongoose";
+
+mongoose.set("strictQuery", false);
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(process.env.PORT, () => {
+      console.log(`Listening on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 import usersRouter from "./routes/users";
 
