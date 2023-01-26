@@ -1,11 +1,11 @@
 import User from "../models/userModel";
-import { jsonwebtoken as jwt } from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 import validator from "validator";
 import bcrypt from "bcrypt";
 
 // Generate JWT
-const generateToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "1h" });
+const generateToken = (id) => {
+  return jsonwebtoken.sign({ id }, process.env.SECRET, { expiresIn: "1h" });
 };
 
 // Login user
