@@ -14,11 +14,9 @@ mongoose
     console.log(err);
   });
 
-import usersRouter from "./routes/users";
+import userRouter from "./routes/user";
 
 const app = express();
 app.use(express.json());
 
-app.use("/api/users", usersRouter);
-
-app.listen(process.env.PORT);
+app.use("/api/users", userRouter);
