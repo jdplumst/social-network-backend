@@ -16,6 +16,17 @@ const loginUser = async (req, res) => {
   }
 
   const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(400).json({ error: "Incorrect email" });
+  }
+
+  const pwdMatch = await bcrypt.compare(password, user.password);
+  if (!pwdMatch) {
+    return res.status(400).json({ error: "Incorrect password" });
+  }
+
+  const token = generateToken(user._id);
+  res.status(200).json({ email, token });
 };
 
 // Signup user
