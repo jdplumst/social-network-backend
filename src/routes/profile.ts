@@ -1,7 +1,10 @@
 import express from "express";
-import { createProfile } from "../controllers/profileController";
+import { getProfiles, createProfile } from "../controllers/profileController";
 
 const router = express.Router();
+
+// GET all User Profiles
+router.get("/", getProfiles);
 
 // CREATE a new User Profile
 router.post("/", createProfile);

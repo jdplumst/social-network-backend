@@ -2,6 +2,12 @@ import mongoose from "mongoose";
 import Profile from "../models/profileModel";
 import User from "../models/userModel";
 
+// Get all profiles
+export const getProfiles = async (req, res) => {
+  const profiles = await Profile.find();
+  res.status(200).json(profiles);
+};
+
 // Create a profile
 export const createProfile = async (req, res) => {
   const { email } = req.body;
