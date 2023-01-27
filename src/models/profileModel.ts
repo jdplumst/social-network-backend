@@ -3,7 +3,12 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const profileSchema = new Schema({
-  user_id: { type: String, required: true, unique: true },
+  user_id: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+    unique: true
+  },
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
   location: { type: String, required: true },
