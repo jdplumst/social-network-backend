@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const userProfileSchema = new Schema({
+const profileSchema = new Schema({
   user_id: { type: String, required: true, unique: true },
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
@@ -13,4 +13,4 @@ const userProfileSchema = new Schema({
   profile_completed: { type: Boolean, required: true } // True if user finished onboarding
 });
 
-export default mongoose.model("UserProfile", userProfileSchema);
+export default mongoose.model("Profile", profileSchema);
