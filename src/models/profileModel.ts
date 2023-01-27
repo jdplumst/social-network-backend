@@ -15,6 +15,7 @@ const profileSchema = new Schema({
   occupation: { type: String, required: true },
   gender: { type: String, required: true },
   birthday: { type: Date, required: true },
+  profile_picture: { type: String, required: true },
   profile_completed: { type: Boolean, required: true } // True if user finished onboarding
 });
 
