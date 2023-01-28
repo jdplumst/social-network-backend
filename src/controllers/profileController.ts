@@ -8,19 +8,19 @@ export const getProfiles = async (req, res) => {
   res.status(200).json(profiles);
 };
 
+// Get a single profile
+// export const getProfile = async (req, res) => {
+//   const user_id = req.params.id;
+//   console.log(user_id);
+//   res.status(200);
+// };
+
 // Create a profile
 export const createProfile = async (req, res) => {
-  const { email } = req.body;
-  if (!email) {
-    return res.status(400).json({ error: "Must be signed up as a real user" });
-  }
-  const user = await User.findOne({ email: email });
-  if (!user) {
-    return res.status(400).json({ error: "Must be signed up as a real user" });
-  }
+  const user_id = req.user._id;
   try {
     const profile = await Profile.create({
-      user_id: user._id,
+      user_id: user_id,
       first_name: " ",
       last_name: " ",
       location: " ",

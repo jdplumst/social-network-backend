@@ -10,6 +10,11 @@ router.use(requireAuth);
 // GET all User Profiles
 router.get("/", getProfiles);
 
+// GET a single User Profile
+router.get("/:id", () => {
+  console.log("GET a single User Profile!");
+});
+
 // CREATE a new User Profile
 router.post("/", createProfile);
 
