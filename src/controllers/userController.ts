@@ -26,7 +26,8 @@ const loginUser = async (req, res) => {
   }
 
   const token = generateToken(user._id);
-  res.status(200).json({ email, token });
+  const user_id = user._id;
+  res.status(200).json({ user_id, email, token });
 };
 
 // Signup user
@@ -56,7 +57,8 @@ const signupUser = async (req, res) => {
   const hash = await bcrypt.hash(password, salt);
   const user = await User.create({ email: email, password: hash });
   const token = generateToken(user._id);
-  res.status(200).json({ email, token });
+  const user_id = user._id;
+  res.status(200).json({ user_id, email, token });
 };
 
 export { loginUser, signupUser };

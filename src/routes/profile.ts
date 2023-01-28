@@ -19,7 +19,7 @@ router.get("/:id", () => {
 router.post("/", createProfile);
 
 // UPDATE a User Profile
-router.post("/:id", () => {
+router.patch("/:id", () => {
   console.log("UPDATE a User Profile!");
 });
 
