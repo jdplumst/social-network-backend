@@ -18,15 +18,28 @@ export const getProfiles = async (req, res) => {
 // Create a profile
 export const createProfile = async (req, res) => {
   const user_id = req.user._id;
+  const { first_name, last_name, location, occupation, gender, birthday } =
+    req.body;
+  if (
+    !first_name ||
+    !last_name ||
+    !location ||
+    !occupation ||
+    !gender ||
+    !birthday
+  ) {
+    return res.status(400).json({ error: "All fields must be filled" });
+  }
+
   try {
     const profile = await Profile.create({
       user_id: user_id,
-      first_name: " ",
-      last_name: " ",
-      location: " ",
-      occupation: " ",
-      gender: " ",
-      birthday: new Date(),
+      first_name: first_name,
+      last_name: last_name,
+      location: location,
+      occupation: occupation,
+      gender: gender,
+      birthday: birthday,
       profile_picture: " ",
       profile_completed: false
     });
