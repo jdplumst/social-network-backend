@@ -9,11 +9,15 @@ export const getProfiles = async (req, res) => {
 };
 
 // Get a single profile
-// export const getProfile = async (req, res) => {
-//   const user_id = req.params.id;
-//   console.log(user_id);
-//   res.status(200);
-// };
+export const getProfile = async (req, res) => {
+  const user_id = req.params.id;
+  if (!user_id || !mongoose.Types.ObjectId.isValid(user_id)) {
+    return res.status(400).json({ error: "No such profile" });
+  }
+
+  const profile = await Profile.findOne({ user_id: user_id });
+  res.status(200).json(profile);
+};
 
 // Create a profile
 export const createProfile = async (req, res) => {

@@ -1,6 +1,10 @@
 import express from "express";
 import { requireAuth } from "../middleware/requireAuth";
-import { getProfiles, createProfile } from "../controllers/profileController";
+import {
+  getProfile,
+  getProfiles,
+  createProfile
+} from "../controllers/profileController";
 
 const router = express.Router();
 
@@ -11,9 +15,7 @@ router.use(requireAuth);
 router.get("/", getProfiles);
 
 // GET a single User Profile
-router.get("/:id", () => {
-  console.log("GET a single User Profile!");
-});
+router.get("/:id", getProfile);
 
 // CREATE a new User Profile
 router.post("/", createProfile);

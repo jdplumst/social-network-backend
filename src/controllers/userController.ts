@@ -27,7 +27,7 @@ const loginUser = async (req, res) => {
 
   const token = generateToken(user._id);
   const user_id = user._id;
-  res.status(200).json({ user_id, email, token });
+  res.status(200).json({ id: user_id, email: email, token: token });
 };
 
 // Signup user
@@ -58,7 +58,7 @@ const signupUser = async (req, res) => {
   const user = await User.create({ email: email, password: hash });
   const token = generateToken(user._id);
   const user_id = user._id;
-  res.status(200).json({ user_id, email, token });
+  res.status(200).json({ id: user_id, email: email, token: token });
 };
 
 export { loginUser, signupUser };
