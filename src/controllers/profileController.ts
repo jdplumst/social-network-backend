@@ -48,7 +48,27 @@ export const createProfile = async (req, res) => {
       VALUES ($1, $2, $3, $4, $5, $6, $7, ' ', false) RETURNING *`,
       [user_id, first_name, last_name, location, occupation, gender, birthday]
     );
-    console.log(profile);
+    res.status(200).json(...profile.rows);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+// Update Profile Picture
+export const updateProfilePicture = async (req, res) => {
+  const user_id = req.user.id;
+  const { profile_picture } = req.body;
+  if (!profile_picture) {
+    return res.status(400).json({ error: "Must select a profile picture" });
+  }
+
+  try {
+    const profile = await pool.query(
+      `UPDATE Profiles
+      SET profile_picture = $1, profile_completed = true WHERE user_id = $2
+      RETURNING *`,
+      [profile_picture, user_id]
+    );
     res.status(200).json(...profile.rows);
   } catch (err) {
     res.status(400).json({ error: err.message });

@@ -3,7 +3,8 @@ import { requireAuth } from "../middleware/requireAuth";
 import {
   getProfile,
   getProfiles,
-  createProfile
+  createProfile,
+  updateProfilePicture
 } from "../controllers/profileController";
 
 const router = express.Router();
@@ -20,9 +21,12 @@ router.get("/:id", getProfile);
 // // CREATE a new User Profile
 router.post("/", createProfile);
 
-// // UPDATE a User Profile
-router.patch("/:id", () => {
-  console.log("UPDATE a User Profile!");
+// // UPDATE User Profile Info
+router.patch("/info/:id", () => {
+  console.log("UPDATE User Profile Info!");
 });
+
+// UPDATE User Profile Picture
+router.patch("/picture/:id", updateProfilePicture);
 
 export default router;
