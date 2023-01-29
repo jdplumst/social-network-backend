@@ -1,4 +1,4 @@
-import User from "../models/userModel";
+import { pool } from "../elephantsql";
 import jsonwebtoken from "jsonwebtoken";
 import validator from "validator";
 import bcrypt from "bcrypt";
@@ -8,15 +8,18 @@ const generateToken = (id) => {
   return jsonwebtoken.sign({ id }, process.env.SECRET, { expiresIn: "1h" });
 };
 
-// Login user
-const loginUser = async (req, res) => {
+// // Login user
+export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: "All fields must be filled" });
   }
 
-  const user = await User.findOne({ email });
-  if (!user) {
+  const userResult = await pool.query("SELECT * FROM Users WHERE email = $1", [
+    email
+  ]);
+  const user = userResult.rows[0];
+  if (userResult.rowCount === 0) {
     return res.status(400).json({ error: "Incorrect email" });
   }
 
@@ -25,13 +28,13 @@ const loginUser = async (req, res) => {
     return res.status(400).json({ error: "Incorrect password" });
   }
 
-  const token = generateToken(user._id);
-  const user_id = user._id;
+  const token = generateToken(user.id);
+  const user_id = user.id;
   res.status(200).json({ id: user_id, email: email, token: token });
 };
 
 // Signup user
-const signupUser = async (req, res) => {
+export const signupUser = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: "All fields must be filled" });
@@ -46,8 +49,10 @@ const signupUser = async (req, res) => {
     });
   }
 
-  const exists = await User.findOne({ email });
-  if (exists) {
+  const numUsers = await pool.query("SELECT * FROM Users WHERE email = $1", [
+    email
+  ]);
+  if (numUsers.rowCount > 0) {
     return res
       .status(400)
       .json({ error: "There already exists an account with this email." });
@@ -55,10 +60,12 @@ const signupUser = async (req, res) => {
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
-  const user = await User.create({ email: email, password: hash });
-  const token = generateToken(user._id);
-  const user_id = user._id;
+  const result = await pool.query(
+    `INSERT INTO Users ("email", "password") VALUES ($1, $2) RETURNING *`,
+    [email, hash]
+  );
+  const user = result.rows[0];
+  const token = generateToken(user.id);
+  const user_id = user.id;
   res.status(200).json({ id: user_id, email: email, token: token });
 };
-
-export { loginUser, signupUser };
