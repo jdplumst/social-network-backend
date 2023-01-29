@@ -18,9 +18,11 @@ export const getProfile = async (req, res) => {
     [user_id]
   );
 
+  // When user signs up, set their profile to null initially
   if (profile.rowCount === 0) {
-    return res.status(400).json({ error: "No such profile" });
+    return res.status(200).json(null);
   }
+
   res.status(200).json(...profile.rows);
 };
 
