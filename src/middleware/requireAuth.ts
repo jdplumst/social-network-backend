@@ -14,7 +14,7 @@ export const requireAuth = async (req, res, next) => {
     const user = await pool.query(`SELECT id FROM Users WHERE id = $1`, [id]);
     req.user = user.rows[0];
   } catch (err) {
-    res.status(401).json({ error: "Request is not authorized" });
+    return res.status(401).json({ error: "Request is not authorized" });
   }
   next();
 };

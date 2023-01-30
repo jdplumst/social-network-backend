@@ -7,7 +7,7 @@ CREATE TABLE Profiles(
   occupation VARCHAR(100) NOT NULL,
   gender VARCHAR(100) NOT NULL,
   birthday DATE NOT NULL,
-  profile_picture VARCHAR(50) NOT NULL,
+  profile_picture VARCHAR(255) NOT NULL,
   profile_completed BOOLEAN NOT NULL,
   FOREIGN KEY(user_id) REFERENCES Users(id)
 )
