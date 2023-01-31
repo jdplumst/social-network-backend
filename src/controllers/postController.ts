@@ -3,8 +3,8 @@ import { pool } from "../elephantsql";
 // Get all Posts
 export const getPosts = async (req, res) => {
   const posts = await pool.query(
-    `SELECT po.user_id, po.description, po.comments, po.likes, po.create_date, po.modify_date, pr.first_name, pr.last_name, pr.profile_picture
-    FROM Posts po join Profiles pr on po.user_id = pr.user_id`
+    `SELECT po.id, po.user_id, po.description, po.comments, po.likes, po.create_date, po.modify_date, pr.first_name, pr.last_name, pr.profile_picture
+    FROM Posts po join Profiles pr on po.user_id = pr.user_id ORDER BY po.modify_date DESC`
   );
   res.status(200).json(posts.rows);
 };
