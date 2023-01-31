@@ -1,5 +1,6 @@
 import express from "express";
 import { requireAuth } from "../middleware/requireAuth";
+import { createPost } from "../controllers/postController";
 
 const router = express.Router();
 
@@ -18,9 +19,7 @@ router.get("/:userid", () => {
 });
 
 // // CREATE a new Post
-router.post("/", () => {
-  console.log("Create a Post!");
-});
+router.post("/", createPost);
 
 // // UPDATE a Post
 router.patch("/:id", () => {
