@@ -5,7 +5,7 @@ import {
   getProfiles,
   createProfile,
   updateProfilePicture
-} from "../controllers/profileController";
+} from "../controllers/profilesController";
 
 const router = express.Router();
 
