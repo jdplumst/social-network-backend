@@ -2,7 +2,9 @@ CREATE TABLE Posts(
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL,
   description VARCHAR(255) NOT NULL,
-  commments INTEGER NOT NULL,
+  comments INTEGER NOT NULL,
   likes INTEGER NOT NULL,
+  create_date TIMESTAMPTZ NOT NULL,
+  modify_date TIMESTAMPTZ NOT NULL,
   FOREIGN KEY(user_id) REFERENCES Users(id)
 )
