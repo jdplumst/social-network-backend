@@ -1,5 +1,12 @@
 import { pool } from "../elephantsql";
 
+// Get all Posts
+export const getPosts = async (req, res) => {
+  const posts = await pool.query(`SELECT * FROM Posts`);
+  res.status(200).json(posts.rows);
+};
+
+// Create a Post
 export const createPost = async (req, res) => {
   const user_id = req.user.id;
   const { description } = req.body;

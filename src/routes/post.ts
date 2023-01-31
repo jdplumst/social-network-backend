@@ -1,6 +1,6 @@
 import express from "express";
 import { requireAuth } from "../middleware/requireAuth";
-import { createPost } from "../controllers/postController";
+import { getPosts, createPost } from "../controllers/postController";
 
 const router = express.Router();
 
@@ -8,10 +8,7 @@ const router = express.Router();
 router.use(requireAuth);
 
 // // GET all Posts
-router.get("/", (req, res) => {
-  console.log("Get all Posts!");
-  res.status(200).json({ msg: "Get all Posts!" });
-});
+router.get("/", getPosts);
 
 // // GET Posts from a single User
 router.get("/:userid", () => {
