@@ -14,3 +14,4 @@ Click [here](https://github.com/jdplumst/social-network-frontend) for the reposi
 - React
 - TypeScript
 - TailwindCSS
+- Material UI
