@@ -6,7 +6,7 @@ export const getProfiles = async (req, res) => {
   res.status(200).json(profiles.rows);
 };
 
-// // Get a single profile
+// Get a single profile
 export const getProfile = async (req, res) => {
   const user_id = req.params.id;
   if (!user_id) {
@@ -26,7 +26,7 @@ export const getProfile = async (req, res) => {
   res.status(200).json(...profile.rows);
 };
 
-// // Create a profile
+// Create a profile
 export const createProfile = async (req, res) => {
   const user_id = req.user.id;
   const { first_name, last_name, location, occupation, gender, birthday } =

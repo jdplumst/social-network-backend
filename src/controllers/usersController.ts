@@ -8,7 +8,7 @@ const generateToken = (id) => {
   return jsonwebtoken.sign({ id }, process.env.SECRET, { expiresIn: "1h" });
 };
 
-// // Login user
+// Login user
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {

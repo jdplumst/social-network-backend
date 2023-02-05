@@ -1,5 +1,6 @@
 import express from "express";
 import { requireAuth } from "../middleware/requireAuth";
+import { createLike } from "../controllers/likesController";
 
 const router = express.Router();
 
@@ -12,8 +13,6 @@ router.get("/:postid", () => {
 });
 
 // Create a Like
-router.post("/:postid", () => {
-  console.log("Create a Like!");
-});
+router.post("/:postid", createLike);
 
 export default router;
