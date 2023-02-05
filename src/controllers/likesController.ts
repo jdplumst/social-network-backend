@@ -26,6 +26,18 @@ export const createLike = async (req, res) => {
   if (!post_id) {
     return res.status(400).json({ err: "Must assign a like to a post" });
   }
+
+  // Check if user already likes the post
+  const check = await pool.query(
+    `SELECT * FROM Likes WHERE user_id = $1 AND post_id = $2`,
+    [user_id, post_id]
+  );
+  if (check.rowCount > 0) {
+    return res
+      .status(400)
+      .json({ error: "Cannot add multiple likes to the same post" });
+  }
+
   try {
     const like = await pool.query(
       `INSERT INTO Likes ("user_id", "post_id")
