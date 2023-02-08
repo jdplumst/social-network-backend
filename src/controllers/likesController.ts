@@ -49,3 +49,17 @@ export const createLike = async (req, res) => {
     res.status(400).json({ error: err });
   }
 };
+
+export const deleteLike = async (req, res) => {
+  const user_id = req.user.id;
+  const post_id = req.params.postid;
+  if (!post_id) {
+    return res.status(400).json({ err: "Post must exist" });
+  }
+
+  const like = await pool.query(
+    `DELETE From Likes WHERE user_id = $1 AND post_id = $2 RETURNING *`,
+    [user_id, post_id]
+  );
+  res.status(200).json(like.rows);
+};
