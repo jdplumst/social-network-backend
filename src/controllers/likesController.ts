@@ -1,5 +1,15 @@
 import { pool } from "../elephantsql";
 
+export const getAllLikes = async (req, res) => {
+  const likes = await pool.query(
+    `SELECT l.post_id, pr.first_name, pr.last_name, pr.profile_picture 
+    FROM Likes l 
+    INNER JOIN Posts po on l.post_id = po.id 
+    INNER JOIN Profiles pr on l.user_id = pr.user_id`
+  );
+  res.status(200).json(likes.rows);
+};
+
 // Get all Likes for a Post
 export const getLikes = async (req, res) => {
   const post_id = req.params.postid;
