@@ -1,5 +1,6 @@
 import express from "express";
 import { requireAuth } from "../middleware/requireAuth";
+import { getComments } from "../controllers/commentsController";
 
 const router = express.Router();
 
@@ -7,9 +8,7 @@ const router = express.Router();
 router.use(requireAuth);
 
 // GET all Comments
-router.get("/", (req, res) => {
-  res.status(200).json({ msg: "GET all Comments!" });
-});
+router.get("/", getComments);
 
 // CREATE a Comment on a POST
 router.post("/:postid", (req, res) => {
