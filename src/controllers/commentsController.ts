@@ -9,3 +9,32 @@ export const getComments = async (req, res) => {
   );
   res.status(200).json(comments.rows);
 };
+
+// Create a Comment
+export const createComment = async (req, res) => {
+  const post_id = req.params.postid;
+  if (!post_id) {
+    return res
+      .status(400)
+      .json({ err: "Must retrieve likes from an existing post" });
+  }
+  const user_id = req.user.id;
+  const { description } = req.body;
+  if (!description) {
+    return res
+      .status(400)
+      .json({ err: "Comment must contain at least 1 character" });
+  }
+
+  try {
+    const curr_date = new Date();
+    const comment = await pool.query(
+      `INSERT INTO Comments ("user_id", "post_id", "description", "create_date", "modify_date")
+      VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      [user_id, post_id, description, curr_date, curr_date]
+    );
+    res.status(200).json(comment.rows[0]);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};

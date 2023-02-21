@@ -1,6 +1,6 @@
 import express from "express";
 import { requireAuth } from "../middleware/requireAuth";
-import { getComments } from "../controllers/commentsController";
+import { getComments, createComment } from "../controllers/commentsController";
 
 const router = express.Router();
 
@@ -11,8 +11,6 @@ router.use(requireAuth);
 router.get("/", getComments);
 
 // CREATE a Comment on a POST
-router.post("/:postid", (req, res) => {
-  res.status(200).json({ msg: "CREATE a Comment on a Post!" });
-});
+router.post("/:postid", createComment);
 
 export default router;
