@@ -4,6 +4,7 @@ import {
   getProfile,
   getProfiles,
   createProfile,
+  updateProfileInfo,
   updateProfilePicture
 } from "../controllers/profilesController";
 
@@ -22,9 +23,7 @@ router.get("/:id", getProfile);
 router.post("/", createProfile);
 
 // UPDATE User Profile Info
-router.patch("/info/:id", () => {
-  console.log("UPDATE User Profile Info!");
-});
+router.patch("/info/:id", updateProfileInfo);
 
 // UPDATE User Profile Picture
 router.patch("/picture/:id", updateProfilePicture);

@@ -54,6 +54,35 @@ export const createProfile = async (req, res) => {
   }
 };
 
+// Update Profile Info
+export const updateProfileInfo = async (req, res) => {
+  const user_id = req.user.id;
+  const { first_name, last_name, location, occupation, gender, birthday } =
+    req.body;
+  if (
+    !first_name ||
+    !last_name ||
+    !location ||
+    !occupation ||
+    !gender ||
+    !birthday
+  ) {
+    return res.status(400).json({ error: "All fields must be filled" });
+  }
+
+  try {
+    const profile = await pool.query(
+      `UPDATE Profiles
+      SET first_name = $1, last_name = $2, location = $3, occupation = $4, gender = $5, birthday = $6 WHERE user_id =  $7
+      RETURNING *`,
+      [first_name, last_name, location, occupation, gender, birthday, user_id]
+    );
+    res.status(200).json(...profile.rows);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 // Update Profile Picture
 export const updateProfilePicture = async (req, res) => {
   const user_id = req.user.id;
