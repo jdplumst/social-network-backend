@@ -9,7 +9,9 @@ export const getProfiles = async (req, res) => {
 // Get a single profile
 export const getProfile = async (req, res) => {
   const user_id = req.params.id;
-  if (!user_id) {
+
+  // Ensure a valid user_id is used
+  if (!user_id || isNaN(user_id)) {
     return res.status(400).json({ error: "No such profile" });
   }
 
