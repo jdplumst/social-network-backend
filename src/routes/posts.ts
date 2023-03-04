@@ -1,6 +1,10 @@
 import express from "express";
 import { requireAuth } from "../middleware/requireAuth";
-import { getPosts, createPost } from "../controllers/postsController";
+import {
+  getPosts,
+  getUserPosts,
+  createPost
+} from "../controllers/postsController";
 
 const router = express.Router();
 
@@ -11,9 +15,7 @@ router.use(requireAuth);
 router.get("/", getPosts);
 
 // GET Posts from a single User
-router.get("/:userid", () => {
-  console.log("Get Posts from a single User!");
-});
+router.get("/:userid", getUserPosts);
 
 // CREATE a new Post
 router.post("/", createPost);

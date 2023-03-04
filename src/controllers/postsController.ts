@@ -11,6 +11,25 @@ export const getPosts = async (req, res) => {
   res.status(200).json(posts.rows);
 };
 
+// Get all Posts from a User
+export const getUserPosts = async (req, res) => {
+  const user_id = req.params.userid;
+  // Ensure a valid user_id is used
+  if (!user_id || isNaN(user_id)) {
+    return res.status(400).json({ error: "No such profile" });
+  }
+
+  const posts = await pool.query(
+    `SELECT po.id, po.user_id, po.description, po.create_date, po.modify_date, pr.first_name, pr.last_name, pr.profile_picture
+    FROM Posts po 
+    INNER JOIN Profiles pr on po.user_id = pr.user_id
+    WHERE po.user_id = $1 
+    ORDER BY po.modify_date DESC`,
+    [user_id]
+  );
+  res.status(200).json(posts.rows);
+};
+
 // Create a Post
 export const createPost = async (req, res) => {
   const user_id = req.user.id;
